@@ -3,7 +3,7 @@
 ### Intro
 A simple application built with express as a backend server, graphql as a query engine/language for API and react as a frontend client library.
 
-## Project-
+## Project - GraphQL-FakeData-React
 ### Examples of queries
 - Querying using `apollo-server`
 - You can use either `query` or not, but it is highly recommended.
@@ -25,12 +25,19 @@ query GetUser{
       isInTheaters
     }
   }
+}
 
-  user(id:1){
-    age,
-    name
+
+
+query GetUser($userId: ID!){
+  user(id: $userId) {
+    id,
+    name,
+    username
   }
 }
+
+"userId": "2"
 
 ```
 
@@ -38,6 +45,22 @@ query GetUser{
 
 ```javascript
 //Operation
+mutation deleteUser($deleteUserId: ID!){
+  deleteUser(id: $deleteUserId) {
+    id
+  }
+}
+
+
+mutation updateUsername($updateUsernameInput2:  UpdateUsernameInput!){
+  updateUsername(input: $updateUsernameInput2) {
+    id,
+    username,
+    name
+  }
+}
+
+
 mutation CreateUser($input: CreateUserInput!){
   createUser(input: $input) {
     id,
@@ -48,16 +71,24 @@ mutation CreateUser($input: CreateUserInput!){
   }
 }
 
-
 //Variables
-
 {
   "input": {
-    "name": "omar",
-    "username": "omar khan",
-    "age": 28,
-    "nationality": "CANADA"
-  }
+    "name": "SEFAT",
+    "username":"Sefatullah Omar",
+    "age":28,
+    "nationality": "CANADA",
+  },
+
+  "deleteUserId": "4",
+
+  "updateUsernameInput2": {
+    "id": "2",
+    "newUsername": "Osefatul"
+  },
+
+  "userId": "2"
+
 }
 ```
 

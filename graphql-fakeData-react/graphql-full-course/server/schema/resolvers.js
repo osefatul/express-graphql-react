@@ -7,7 +7,7 @@ const resolvers = {
     users: () => {
       return UserList;
     },
-    user: (args) => {
+    user: (parent,args) => {
       const id = args.id;
       const user = _.find(UserList, { id: Number(id) });
       return user;
@@ -17,7 +17,8 @@ const resolvers = {
     movies: () => {
       return MovieList;
     },
-    movie: (args) => {
+    
+    movie: (parent, args) => {
       const name = args.name;
       const movie = _.find(MovieList, { name: String(name) });
       return movie;
@@ -35,7 +36,7 @@ const resolvers = {
   },
 
   Mutation: {
-    createUser: (args) => {
+    createUser: (parent,args) => {
       const user = args.input;
       const lastId = UserList[UserList.length - 1].id;
       user.id = lastId + 1;
@@ -63,7 +64,6 @@ const resolvers = {
   },
 };
 
-asdfasf
 
 
 module.exports = { resolvers };
