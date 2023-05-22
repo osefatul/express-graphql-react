@@ -4,8 +4,14 @@ const _ = require("lodash");
 const resolvers = {
   Query: {
     // USER RESOLVERS
-    users: () => {
-      return UserList;
+    users: (parent,args, contextValue, info) => {
+      // console.log(contextValue)
+      // console.log(info)
+      // return UserList;
+
+      if(UserList) return {users:UserList}
+
+      return {message: "Yo, there was an error"}
     },
     user: (parent,args) => {
       const id = args.id;
@@ -62,6 +68,20 @@ const resolvers = {
       return null;
     },
   },
+
+  UsersResult: {
+    __resolveType(obj){
+      if(obj.users){
+        return "UsersSuccessfulResult"
+      }
+      
+      if(obj.message){
+        return "UsersErrorResult"
+      }
+
+      return null;
+    }
+  }
 };
 
 

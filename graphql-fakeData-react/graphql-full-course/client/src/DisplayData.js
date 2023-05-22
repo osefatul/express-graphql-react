@@ -1,16 +1,46 @@
 import React, { useState } from "react";
 import { useQuery, useLazyQuery, gql, useMutation } from "@apollo/client";
 
+// const QUERY_ALL_USERS = gql`
+//   query GetAllUsers {
+//     users {
+//       id
+//       name
+//       age
+//       username
+//       nationality
+//     }
+//   }
+// `;
+
 const QUERY_ALL_USERS = gql`
-  query GetAllUsers {
-    users {
-      id
-      name
-      age
-      username
-      nationality
+  query GetUser{
+  users {
+    ...on UsersSuccessfulResult{
+      users {
+        id,
+        age,
+        name,
+        username,
+        nationality,
+        friends {
+          age,
+          name
+        },
+        favoriteMovies {
+          id,
+          name,
+          yearOfPublication,
+          isInTheaters
+        }
+      }
+    }
+
+    ...on UsersErrorResult{
+      message
     }
   }
+}
 `;
 
 const QUERY_A_USER = gql`
@@ -72,7 +102,7 @@ function DisplayData() {
 
   //Query All users
   const { data, loading, refetch } = useQuery(QUERY_ALL_USERS);
-  
+  console.log(data)
   //Query All movies
   const { data: movieData } = useQuery(QUERY_ALL_MOVIES);
   
@@ -238,7 +268,7 @@ function DisplayData() {
 
       <h1>All Users</h1>
       {data &&
-        data.users.map((user) => {
+        data.users.users.map((user) => {
           return (
             <div style={{display: "flex", gap: "10px"}}>
               <p>Id: {user.id}</p>
