@@ -2,18 +2,20 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const { createServer } = require('http');
-const { subscribe, execute } = require('graphql');
-const { SubscriptionServer } = require('subscriptions-transport-ws');
-const { makeExecutableSchema } = require('@graphql-tools/schema');
-const { PubSub } = require('graphql-subscriptions');
 const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
+
+const { subscribe, execute } = require('graphql');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
+const { SubscriptionServer } = require('subscriptions-transport-ws');
+const { PubSub } = require('graphql-subscriptions');
+const { ApolloServer } = require('apollo-server-express');
+const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core');
 
 const resolvers = require('./graphQL');
 const typeDefs = require('./graphQL/typeDefs');
-const { ApolloServerPluginDrainHttpServer } = require('apollo-server-core');
 const PORT = process.env.PORT || 4000;
+
 
 console.log("Connected to MongoDB")
 mongoose.connect(process.env.MONGO_URL).then(
@@ -57,10 +59,8 @@ mongoose.connect(process.env.MONGO_URL).then(
         server: httpServer,
         path: server.graphqlPath
     })
-
     await server.start();
     server.applyMiddleware({ app });
-
     await new Promise(resolve => httpServer.listen({ port: PORT }, resolve));
     console.log(`Server ready at  http://localhost:${PORT}${server.graphqlPath}`);
 })(typeDefs, resolvers);

@@ -3,6 +3,7 @@ const Post = require('../../models/Post');
 const checkAuth = require('../../utils/check-auth');
 
 module.exports = {
+
     Query: {
         getPosts: async () => {
             try{
@@ -22,14 +23,14 @@ module.exports = {
             }
         }
     },
+    
     Mutation: {
+        
         createPost: async (_, { content }, context) => {
             const user = checkAuth(context);
-
             if (content.trim() === "") {
                 throw new Error('Post body must not be empty');
             }
-
             const newPost = new Post({
                 user: user.id,
                 username: user.username,
@@ -37,15 +38,14 @@ module.exports = {
                 createdAt: new Date().toISOString()
             });
             const post = await newPost.save();
-
             context.pubSub.publish('NEW_POST', {
                 newPost: post,
             });
             return post;
         },
+
         deletePost: async (_, { id }, context) => {
             const user = checkAuth(context);
-
             try{
                 const post = await Post.findById(id);
                 if (user.username === post.username) {

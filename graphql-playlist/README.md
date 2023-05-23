@@ -136,16 +136,23 @@ Enums works like a validator, you put all the possible values that it contains.
 
 So, when you ask for nationality for a user, it should contain in the enum values
 
+
 ```javascript
+
 ...
-  type User {
-    id: ID!
-    name: String!
-    username: String!
-    age: Int!
-    nationality: Nationality!
-    friends: [User]
-    favoriteMovies: [Movie]
-  }
+
+type User 
+{
+  id: ID!
+  name: String!
+  username: String!
+  age: Int!
+  nationality: Nationality!
+  friends: [User]
+  favoriteMovies: [Movie]
+}
+
 ...
+
+
 ```
