@@ -9,7 +9,7 @@ const HELLO_QUERY = gql`
 export default function Hello() {
     const {data, loading, error} = useQuery(HELLO_QUERY, {
         variables: {
-            name: "Jacob"
+            name: "Buddy"
         }
     });
 

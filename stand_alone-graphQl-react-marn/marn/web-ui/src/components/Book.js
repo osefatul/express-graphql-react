@@ -3,6 +3,7 @@ import { useState } from 'react';
 import {DELETE_BOOK_MUTATION, BOOKS_QUERY, EDIT_BOOK_MUTATION} from '../graphql';
 
 export default function Book({book}) {
+    
     const [deleteBookMutation] = useMutation(DELETE_BOOK_MUTATION, {
         refetchQueries: [
             {query: BOOKS_QUERY},

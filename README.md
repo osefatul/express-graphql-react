@@ -10,6 +10,7 @@ A simple application built with express as a backend server, graphql as a query 
 - You can also assign a name to the query.
 
 ```javascript
+//Using A simple query
 query GetUser{
   users {
     age,
@@ -23,6 +24,33 @@ query GetUser{
       name,
       yearOfPublication,
       isInTheaters
+    }
+  }
+}
+
+
+//using query a long with error handling techniques:
+query GetUser{
+  users {
+    ...on UsersSuccessfulResult{
+      users {
+        age,
+        name,
+        friends {
+          age,
+          name
+        },
+        favoriteMovies {
+          id,
+          name,
+          yearOfPublication,
+          isInTheaters
+        }
+      }
+    }
+
+    ...on UsersErrorResult{
+      message
     }
   }
 }
