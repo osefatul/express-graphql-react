@@ -55,6 +55,8 @@ const typeDefs = gql`
     UKRAINE
   }
 
+
+
   # Using Union for error handling
   type UsersSuccessfulResult {
     users: [User!]!
