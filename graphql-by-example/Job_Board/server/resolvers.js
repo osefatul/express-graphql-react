@@ -28,10 +28,10 @@ export const resolvers = {
 
   Mutation: {
     createJob: (_root, { input: { title, description } }, { user }) => {
-      if (!user) {
-        throw unauthorizedError('Missing authentication');
-      }
-      return createJob({ companyId: user.companyId, title, description });
+      // if (!user) {
+      //   throw unauthorizedError('Missing authentication');
+      // }
+      return createJob({ companyId: "FjcJCHJALA4i", title, description });
     },
 
     deleteJob: async (parent, { id }, { user }) => {
