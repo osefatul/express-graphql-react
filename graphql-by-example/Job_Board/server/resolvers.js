@@ -28,24 +28,24 @@ export const resolvers = {
 
   Mutation: {
     createJob: (_root, { input: { title, description } }, { user }) => {
-      // if (!user) {
-      //   throw unauthorizedError('Missing authentication');
-      // }
-      return createJob({ companyId: "FjcJCHJALA4i", title, description });
+      if (!user) {
+        throw unauthorizedError('Missing authentication');
+      }
+      return createJob({ companyId: user.companyId, title, description });
     },
 
-    deleteJob: async (parent, { id }) => {
-      // if (!user) {
-      //   throw unauthorizedError('Missing authentication');
-      // }
-      const job = await deleteJob(id, "FjcJCHJALA4i");
+    deleteJob: async (parent, { id }, { user }) => {
+      if (!user) {
+        throw unauthorizedError('Missing authentication');
+      }
+      const job = await deleteJob(id, user.companyId);
       if (!job) {
         throw notFoundError('No Job found with id ' + id);
       }
       return job;
     },
 
-    updateJob: async (parent, { input: { id, title, description } }, { user }) => {
+    updateJob: async (_root, { input: { id, title, description } }, { user }) => {
       if (!user) {
         throw unauthorizedError('Missing authentication');
       }
