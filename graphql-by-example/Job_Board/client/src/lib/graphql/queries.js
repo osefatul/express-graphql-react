@@ -5,6 +5,8 @@ import { getAccessToken } from '../auth';
 
 const httpLink = createHttpLink({ uri: 'http://localhost:9000/graphql' });
 
+
+//custom link for mutating requests and it needs Authentication
 const authLink = new ApolloLink((operation, forward) => {
   const accessToken = getAccessToken();
   if (accessToken) {

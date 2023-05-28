@@ -11,6 +11,8 @@ import { getUser } from './db/users.js';
 const PORT = 9000;
 
 const app = express();
+
+//check each request for cors, body-parse, and if they r coming with verified address
 app.use(cors(), express.json(), authMiddleware);
 
 app.post('/login', handleLogin);
@@ -18,6 +20,8 @@ app.post('/login', handleLogin);
 const typeDefs = await readFile('./schema.graphql', 'utf8');
 
 async function getContext({ req }) {
+
+  // console.log(req.auth)
   const companyLoader = createCompanyLoader();
   const context = { companyLoader };
   if (req.auth) {
@@ -28,6 +32,7 @@ async function getContext({ req }) {
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 await apolloServer.start();
+
 app.use('/graphql', apolloMiddleware(apolloServer, { context: getContext }));
 
 app.listen({ port: PORT }, () => {
