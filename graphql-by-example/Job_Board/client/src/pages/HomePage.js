@@ -4,8 +4,10 @@ import {useState} from "react"
 import { useJobs } from '../lib/graphql/hooks';
 import PaginationBar from '../components/PaginationBar';
 
-const JOBS_PER_PAGE = 7;
 
+
+
+const JOBS_PER_PAGE = 5;
 
 function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);

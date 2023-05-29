@@ -25,7 +25,7 @@ export function useJobs(limit, offset) {
 
 export function useCreateJob() {
   const [mutate, { loading }] = useMutation(createJobMutation);
-
+  
   const createJob = async (title, description) => {
     const { data: { job } } = await mutate({
       variables: { input: { title, description } },

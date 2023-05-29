@@ -19,14 +19,16 @@ app.post('/login', handleLogin);
 
 const typeDefs = await readFile('./schema.graphql', 'utf8');
 
-async function getContext({ req }) {
 
+//context has access to express request and response
+async function getContext({ req }) {
   // console.log(req.auth)
   const companyLoader = createCompanyLoader();
   const context = { companyLoader };
   if (req.auth) {
     context.user = await getUser(req.auth.sub);
   }
+  //now context object return {companyLoader, user}
   return context;
 }
 

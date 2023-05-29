@@ -17,10 +17,12 @@ const authLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
+
 export const apolloClient = new ApolloClient({
   link: concat(authLink, httpLink),
   cache: new InMemoryCache(),
 });
+
 
 const jobDetailFragment = gql`
   fragment JobDetail on Job {
@@ -34,6 +36,7 @@ const jobDetailFragment = gql`
     description
   }
 `;
+
 
 export const companyByIdQuery = gql`
   query CompanyById($id: ID!) {
@@ -50,6 +53,7 @@ export const companyByIdQuery = gql`
   }
 `;
 
+
 export const jobByIdQuery = gql`
   query JobById($id: ID!) {
     job(id: $id) {
@@ -58,6 +62,7 @@ export const jobByIdQuery = gql`
   }
   ${jobDetailFragment}
 `;
+
 
 export const jobsQuery = gql`
   query Jobs($limit: Int, $offset: Int) {
@@ -75,6 +80,7 @@ export const jobsQuery = gql`
     }
   }
 `;
+
 
 export const createJobMutation = gql`
   mutation CreateJob($input: CreateJobInput!) {

@@ -3,6 +3,7 @@ import { getCompany } from './db/companies.js';
 import { countJobs, createJob, deleteJob, getJob, getJobs, getJobsByCompany, updateJob } from './db/jobs.js';
 
 export const resolvers = {
+
   Query: {
     company: async (_root, { id }) => {
       const company = await getCompany(id);
@@ -25,6 +26,7 @@ export const resolvers = {
       return { items, totalCount };
     },
   },
+
 
   Mutation: {
     createJob: (_root, { input: { title, description } }, { user }) => {
@@ -57,16 +59,16 @@ export const resolvers = {
     },
   },
 
+
   Company: {
     jobs: (company=parent) => getJobsByCompany(company.id),
   },
 
   Job: {
-    // company: (job, _args, { companyLoader }) => {
-    //   return companyLoader.load(job.companyId);
-    // },
-    //
-    company: (parent, _args) => getCompany(parent.companyId),
+    // company: (parent, _args) => getCompany(parent.companyId),
+    company: (job, _args, { companyLoader }) => {
+      return companyLoader.load(job.companyId);
+    },
     date: (parent) => toIsoDate(parent.createdAt),
   },
 };
