@@ -1,0 +1,13 @@
+{
+  "extends": "@tsconfig/node18/tsconfig.json",
+  "compilerOptions": {
+    "target": "es2017",
+    "rootDir": "src",
+    "outDir": "build",
+    "module": "ES2022",
+    "strict": false
+  },
+  "ts-node": {
+    "esm": true
+  }
+}

@@ -1,0 +1,2 @@
+Server: https://github.com/graphql-by-example/job-board/commit/dcb0d008fa2765e5235612feda52684cb588a67e
+Client: https://github.com/graphql-by-example/job-board/commit/331e8e1af373b5e9ef67647b0da2ef6249a7b631
